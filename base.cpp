@@ -32,6 +32,8 @@ using namespace std;
 //static const int INF = 1e9;
 //static const double PI = acos(-1.0);
 //static const double EPS = 1e-10;
+//static const int dx[8] = { 1, 1, 0,-1,-1,-1, 0, 1};
+//static const int dy[8] = { 0, 1, 1, 1, 0,-1,-1,-1};
 typedef long long int LL;
 typedef unsigned long long int ULL;
 typedef vector<int> VI;
@@ -68,6 +70,6 @@ double dot_product(xy_t a, xy_t b){ return (conj(a) * b).real(); }
 double cross_product(xy_t a, xy_t b){ return (conj(a) * b).imag(); }
 xy_t projection(xy_t p, xy_t b) {return b * dot_product(p,b) / norm(b);}
 
-int main(){
+int main() {
   return 0;
 }
