@@ -72,5 +72,19 @@ double cross_product(xy_t a, xy_t b){ return (conj(a) * b).imag(); }
 xy_t projection(xy_t p, xy_t b) {return b * dot_product(p,b) / norm(b);}
 
 int main() {
+  int n, W, w[100], v[100], dp[101][101];
+  cin >> n >> W;
+  REP(i, n) {
+    cin >> w[i] >> v[i];
+  }
+  RREP(i, n) {
+    REP(j, W) {
+      if(j < w[i]) { dp[i][j] = dp[i + 1][j]; }
+      else {
+        dp[i][j] = max(dp[i + 1][j], dp[i + 1][j - w[i]] + v[i]);
+      }
+      cout << dp << endl;
+    }
+  }
   return 0;
 }

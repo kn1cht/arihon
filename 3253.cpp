@@ -45,21 +45,22 @@ typedef vector<char> VC;
 typedef vector<VC> VVC;
 
 int main() {
-  int n, len = 0;
-  VI L;
+  int n;
+  multiset<int> L;
   cin >> n;
   REP(i,n) {
     int tmp;
     cin >> tmp;
-    L.pb(tmp);
-    len += tmp;
+    L.insert(tmp);
   }
-  sort(all(L));
   LL ans = 0;
-  while(L.length()) {
-    int t = L[0] + L[1];
-
+  while(L.size() > 1) {
+    int t = *L.begin();
+    L.erase(L.begin());
+    t += *L.begin();
+    L.erase(L.begin());
     ans += t;
+    L.insert(t);
   }
   cout << ans << endl;
   return 0;
