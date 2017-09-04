@@ -30,7 +30,7 @@
 #define debug(x) cerr<< #x <<": "<<x<<endl
 #define debug2(x,y) cerr<< #x <<": "<< x <<", "<< #y <<": "<< y <<endl
 using namespace std;
-//static const int INF = 1e9;
+static const int INF = 1e9;
 //static const double PI = acos(-1.0);
 //static const double EPS = 1e-10;
 //static const int dx[8] = { 1, 1, 0,-1,-1,-1, 0, 1};
@@ -44,51 +44,34 @@ typedef vector<VLL> VVLL;
 typedef vector<char> VC;
 typedef vector<VC> VVC;
 
-// pair
-template<typename T1, typename T2> ostream& operator<<(ostream& s, const pair<T1, T2>& p) {
-  return s << "(" << p.first << ", " << p.second << ")";
-}
-// vector
-template<typename T> ostream& operator<<(ostream& s, const vector<T>& v) {
-  int len = v.size();
-  for (int i = 0; i < len; ++i) {
-    s << v[i]; if (i < len - 1) s << "\t";
-  }
-  return s;
-}
-// 2 dimentional vector
-template<typename T> ostream& operator<<(ostream& s, const vector< vector<T> >& vv) {
-  int len = vv.size();
-  for (int i = 0; i < len; ++i) {
-    s << vv[i] << endl;
-  }
-  return s;
+// initialization
+template<typename A, size_t N, typename T> void Fill(A (&array)[N], const T &val){
+  fill( (T*)array, (T*)(array+N), val );
 }
 
-//幾何問題用・複素数
-typedef complex<double> xy_t;
-double dot_product(xy_t a, xy_t b){ return (conj(a) * b).real(); }
-double cross_product(xy_t a, xy_t b){ return (conj(a) * b).imag(); }
-xy_t projection(xy_t p, xy_t b) {return b * dot_product(p,b) / norm(b);}
+int n, W, w[100], v[100], dp[101][10001] = { { INF } };
 
 int main() {
-  int n, W, w[100], v[100];
+  Fill(dp, INF);
+  dp[0][0] = 0;
   cin >> n >> W;
-  VVI dp;
-  dp.resize(n + 1);
-  REP(i, n + 1) { dp[i].resize(W + 1); }
   REP(i, n) {
     cin >> w[i] >> v[i];
   }
-  RREP(i, n) {
-    REP(j, W + 1) {
-      if(j < w[i]) { dp[i][j] = dp[i + 1][j]; }
+  REP(i, n) {
+    REP(j, 100 * n) {
+      if(j < v[i]) { dp[i + 1][j] = dp[i][j]; }
       else {
-        dp[i][j] = max(dp[i + 1][j], dp[i + 1][j - w[i]] + v[i]);
+        dp[i + 1][j] = min(dp[i][j], dp[i][j - v[i]] + w[i]);
       }
-      cout << dp << endl;
     }
   }
-  cout << dp[0][W] << endl;
+
+  RREP(j, 100 * n) {
+    if(dp[n][j] <= W) {
+      cout << j << endl;
+      break;
+    }
+  }
   return 0;
 }
