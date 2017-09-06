@@ -49,33 +49,26 @@ template<typename A, size_t N, typename T> void FILL(A (&array)[N], const T &val
   fill( (T*)array, (T*)(array+N), val );
 }
 
-// pair
-template<typename T1, typename T2> ostream& operator<<(ostream& s, const pair<T1, T2>& p) {
-  return s << "(" << p.first << ", " << p.second << ")";
-}
-// vector
-template<typename T> ostream& operator<<(ostream& s, const vector<T>& v) {
-  int len = v.size();
-  for (int i = 0; i < len; ++i) {
-    s << v[i]; if (i < len - 1) s << "\t";
-  }
-  return s;
-}
-// 2 dimentional vector
-template<typename T> ostream& operator<<(ostream& s, const vector< vector<T> >& vv) {
-  int len = vv.size();
-  for (int i = 0; i < len; ++i) {
-    s << vv[i] << endl;
-  }
-  return s;
-}
-
-//幾何問題用・複素数
-typedef complex<double> xy_t;
-double dot_product(xy_t a, xy_t b){ return (conj(a) * b).real(); }
-double cross_product(xy_t a, xy_t b){ return (conj(a) * b).imag(); }
-xy_t projection(xy_t p, xy_t b) {return b * dot_product(p,b) / norm(b);}
-
 int main() {
+  int n, m;
+  while(cin >> n >> m, n && m) {
+    VI A(n), C(n);
+    REP(i, n) { cin >> A[i]; }
+    REP(i, n) { cin >> C[i]; }
+    VI dp(m + 1, -1);
+    dp[0] = 0;
+
+    REP(i, n) {
+      REP(j, m + 1) {
+        if(dp[j] >= 0) { dp[j] = C[i]; }
+        else if(j >= A[i] && dp[j - A[i]] > 0) { dp[j] = dp[j - A[i]] - 1; }
+        else { dp[j] = -1; }
+      }
+    }
+
+    int ans = 0;
+    FOR(j, 1, m + 1) { if(dp[j] >= 0) { ans++; }  }
+    cout << ans << endl;
+  }
   return 0;
 }

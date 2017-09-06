@@ -45,14 +45,14 @@ typedef vector<char> VC;
 typedef vector<VC> VVC;
 
 // initialization
-template<typename A, size_t N, typename T> void Fill(A (&array)[N], const T &val){
+template<typename A, size_t N, typename T> void FILL(A (&array)[N], const T &val){
   fill( (T*)array, (T*)(array+N), val );
 }
 
 int n, W, w[100], v[100], dp[101][10001] = { { INF } };
 
 int main() {
-  Fill(dp, INF);
+  FILL(dp, INF);
   dp[0][0] = 0;
   cin >> n >> W;
   REP(i, n) {
