@@ -70,6 +70,22 @@ template<typename T> ostream& operator<<(ostream& s, const vector< vector<T> >& 
   return s;
 }
 
+// Union-Find Tree
+struct Union {
+  vector<int> data;
+  Union(int size) : data(size, -1) {}
+  bool unite(int x, int y) {
+    if (x = root(x), y = root(y), x != y) {
+      if (data[y] < data[x]) { swap(x, y); }
+      data[x] += data[y]; data[y] = x;
+    }
+    return x != y;
+  }
+  bool find(int x, int y) { return root(x) == root(y); }
+  int root(int x) { return data[x] < 0 ? x : data[x] = root(data[x]); }
+  int size(int x) { return -data[root(x)]; }
+};
+
 //幾何問題用・複素数
 typedef complex<double> xy_t;
 double dot_product(xy_t a, xy_t b){ return (conj(a) * b).real(); }
