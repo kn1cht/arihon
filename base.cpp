@@ -1,22 +1,4 @@
-#include <algorithm>
-#include <cassert>
-#include <cmath>
-#include <complex>
-#include <cstdio>
-#include <cstdlib>
-#include <deque>
-#include <iomanip>
-#include <iostream>
-#include <iterator>
-#include <list>
-#include <map>
-#include <queue>
-#include <set>
-#include <sstream>
-#include <stack>
-#include <string>
-#include <utility>
-#include <vector>
+#include <bits/stdc++.h>
 #define FOR(i,k,n) for (int (i)=(k); (i)<(n); ++(i))
 #define RFOR(i,k,n) for (int (i)=(n)-1; (i)>=(k); --(i))
 #define REP(i,n) FOR(i,0,n)
@@ -43,6 +25,9 @@ typedef vector<LL> VLL;
 typedef vector<VLL> VVLL;
 typedef vector<char> VC;
 typedef vector<VC> VVC;
+typedef vector<bool> VB;
+typedef vector<VB> VVB;
+typedef pair<int, int> PII;
 
 // initialization
 template<typename A, size_t N, typename T> void FILL(A (&array)[N], const T &val){
@@ -70,9 +55,13 @@ template<typename T> ostream& operator<<(ostream& s, const vector< vector<T> >& 
   return s;
 }
 
+int main() {
+  return 0;
+}
+
 // Union-Find Tree
 struct Union {
-  vector<int> data;
+  VI data;
   Union(int size) : data(size, -1) {}
   bool unite(int x, int y) {
     if (x = root(x), y = root(y), x != y) {
@@ -86,12 +75,35 @@ struct Union {
   int size(int x) { return -data[root(x)]; }
 };
 
-//幾何問題用・複素数
+// Dijkstra
+struct Graph {
+  const int N;
+  vector<vector<PII> > data; // fst : to, snd : cost
+  Graph(int size) : N(size + 1), data(N) {}
+
+  VI dijkstra(int s) {
+    priority_queue<PII, vector<PII>, greater<PII> > PQ;
+    VI distance(N, 1e9);
+    distance[s] = 0;
+    PQ.push(mp(0, s));
+    while(!PQ.empty()) {
+      PII p = PQ.top(); PQ.pop();
+      int v = p.snd;
+      if(distance[v] < p.fst) { continue; }
+      for(const auto & e : data[v]) {
+        if(distance[e.fst] > distance[v] + e.snd) {
+          distance[e.fst] = distance[v] + e.snd;
+          PQ.push(mp(distance[e.fst], e.fst));
+        }
+      }
+    }
+    return distance;
+  }
+};
+
+// complex
 typedef complex<double> xy_t;
 double dot_product(xy_t a, xy_t b){ return (conj(a) * b).real(); }
 double cross_product(xy_t a, xy_t b){ return (conj(a) * b).imag(); }
 xy_t projection(xy_t p, xy_t b) {return b * dot_product(p,b) / norm(b);}
 
-int main() {
-  return 0;
-}
