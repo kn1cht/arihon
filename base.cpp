@@ -48,6 +48,10 @@ typedef vector<bool> VB;
 typedef vector<VB> VVB;
 typedef pair<int, int> PII;
 
+int main() {
+  return 0;
+}
+
 // initialization
 template<typename A, size_t N, typename T> void FILL(A (&array)[N], const T &val){
   fill( (T*)array, (T*)(array+N), val );
@@ -72,10 +76,6 @@ template<typename T> ostream& operator<<(ostream& s, const vector< vector<T> >& 
     s << vv[i] << endl;
   }
   return s;
-}
-
-int main() {
-  return 0;
 }
 
 // Union-Find Tree
@@ -145,3 +145,57 @@ double dot_product(xy_t a, xy_t b){ return (conj(a) * b).real(); }
 double cross_product(xy_t a, xy_t b){ return (conj(a) * b).imag(); }
 xy_t projection(xy_t p, xy_t b) {return b * dot_product(p,b) / norm(b);}
 
+// GCD
+int gcd(int a, int b) {
+  if(b == 0) { return a; }
+  return gcd(b, a % b);
+}
+
+// Prime
+bool is_prime(int n) {
+  for(int i = 2; i * i <= n; ++i) {
+    if(n % i == 0) { return false; }
+  }
+  return n != 1;
+}
+VI divisor(int n) {
+  VI res;
+  for(int i = 1; i * i <= n; ++i) {
+    if(n % i == 0) {
+      res.pb(i);
+      if(i != n / i) { res.pb(n / i); }
+    }
+  }
+  return res;
+}
+map<int, int> prime_factor(int n) {
+  map<int, int> res;
+  for(int i = 2; i * i <= n; ++i) {
+    while(n % i == 0) {
+      ++res[i];
+      n /= i;
+    }
+  }
+  if(n != 1) { res[n] = 1; }
+  return res;
+}
+int sieve(int n) {
+  VI prime;
+  VB is_prime(n + 1, true);
+  is_prime[0] = is_prime[1] = false;
+  for(int i = 2; i <= n; ++i) {
+    if(is_prime[i]) {
+      prime.pb(i);
+      for(int j = 2 * i; j <= n; j += i) { is_prime[j] = false; }
+    }
+  }
+  return prime.size();
+}
+
+// Power
+long long mod_pow(long long x, long long n, long long mod) {
+  if(n == 0) { return 1; }
+  long long res = mod_pow(x * x % mod, n >> 1, mod);
+  if(n & 1) { res = res * x % mod; }
+  return res;
+}
