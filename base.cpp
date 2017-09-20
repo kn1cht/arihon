@@ -42,21 +42,14 @@ typedef vector<int> VI;
 typedef vector<VI> VVI;
 typedef vector<LL> VLL;
 typedef vector<VLL> VVLL;
+typedef vector<double> VD;
+typedef vector<VD> VVD;
 typedef vector<char> VC;
 typedef vector<VC> VVC;
 typedef vector<bool> VB;
 typedef vector<VB> VVB;
 typedef pair<int, int> PII;
-
-int main() {
-  return 0;
-}
-
-// initialization
-template<typename A, size_t N, typename T> void FILL(A (&array)[N], const T &val){
-  fill( (T*)array, (T*)(array+N), val );
-}
-
+/*** cout overload ***/
 // pair
 template<typename T1, typename T2> ostream& operator<<(ostream& s, const pair<T1, T2>& p) {
   return s << "(" << p.first << ", " << p.second << ")";
@@ -76,6 +69,15 @@ template<typename T> ostream& operator<<(ostream& s, const vector< vector<T> >& 
     s << vv[i] << endl;
   }
   return s;
+}
+
+int main() {
+  return 0;
+}
+
+// Array fill
+template<typename A, size_t N, typename T> void FILL(A (&array)[N], const T &val){
+  fill( (T*)array, (T*)(array+N), val );
 }
 
 // Union-Find Tree
