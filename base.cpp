@@ -201,3 +201,15 @@ long long mod_pow(long long x, long long n, long long mod) {
   if(n & 1) { res = res * x % mod; }
   return res;
 }
+
+// Binary search
+double bi_search() {
+  double lb = -1, ub = 1e9;
+  while (ub - lb > 0.001) {
+    double ans = (lb + ub) / 2;
+    double C = 1; // hantei
+    if (C) lb = ans;
+    else ub = ans;
+  }
+  return ans;
+}
