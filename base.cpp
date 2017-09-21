@@ -28,8 +28,10 @@
 #define snd second
 #define all(v) v.begin(), v.end()
 #define rall(v) v.rbegin(), v.rend()
-#define debug(x) cerr<< #x <<": "<<x<<endl
-#define debug2(x,y) cerr<< #x <<": "<< x <<", "<< #y <<": "<< y <<endl
+#define debug(x) cerr << #x <<": "<<x<<endl
+#define debug2(x,y) cerr << #x <<": "<< x <<", "<< #y <<": "<< y << endl
+#define answer(x) cout << x <<endl
+#define answer_fixed(x, p) cout << fixed << setprecision(p) << x << endl
 using namespace std;
 //static const int INF = 1e9;
 //static const double PI = acos(-1.0);
@@ -72,6 +74,8 @@ template<typename T> ostream& operator<<(ostream& s, const vector< vector<T> >& 
 }
 
 int main() {
+  int ans = 0;
+  answer(ans);
   return 0;
 }
 
@@ -204,9 +208,9 @@ long long mod_pow(long long x, long long n, long long mod) {
 
 // Binary search
 double bi_search() {
-  double lb = -1, ub = 1e9;
+  double lb = -1, ub = 1e9, ans;
   while (ub - lb > 0.001) {
-    double ans = (lb + ub) / 2;
+    ans = (lb + ub) / 2;
     double C = 1; // hantei
     if (C) lb = ans;
     else ub = ans;
