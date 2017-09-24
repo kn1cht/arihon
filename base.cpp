@@ -74,6 +74,7 @@ template<typename T> ostream& operator<<(ostream& s, const vector< vector<T> >& 
 }
 
 int main() {
+  ios_base::sync_with_stdio(false);
   int ans = 0;
   answer(ans);
   return 0;
