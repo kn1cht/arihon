@@ -29,9 +29,9 @@
 #define all(v) v.begin(), v.end()
 #define rall(v) v.rbegin(), v.rend()
 #define debug(x) cerr << #x <<": "<<x<<endl
-#define debug2(x,y) cerr << #x <<": "<< x <<", "<< #y <<": "<< y << endl
-#define answer(x) cout << x <<endl
-#define answer_fixed(x, p) cout << fixed << setprecision(p) << x << endl
+#define debug2(x,y) cerr << #x <<": "<< (x) <<", "<< #y <<": "<< (y) << endl
+#define answer(x) cout << (x) <<endl
+#define answer_fixed(x, p) cout << fixed << setprecision(p) << (x) << endl
 using namespace std;
 //static const int INF = 1e9;
 //static const double PI = acos(-1.0);
@@ -58,19 +58,20 @@ template<typename T1, typename T2> ostream& operator<<(ostream& s, const pair<T1
 }
 // vector
 template<typename T> ostream& operator<<(ostream& s, const vector<T>& v) {
-  int len = v.size();
-  for (int i = 0; i < len; ++i) {
-    s << v[i]; if (i < len - 1) s << "\t";
-  }
+  for (int i = 0; i < v.size(); ++i) { s << v[i] << (i == v.size() - 1 ? "" : "\t"); }
   return s;
 }
 // 2 dimentional vector
 template<typename T> ostream& operator<<(ostream& s, const vector< vector<T> >& vv) {
-  int len = vv.size();
-  for (int i = 0; i < len; ++i) {
-    s << vv[i] << endl;
-  }
+  for (int i = 0; i < vv.size(); ++i) { s << vv[i] << endl; }
   return s;
+}
+// map
+template<typename T1, typename T2> ostream& operator<<(ostream& s, const map<T1, T2>& m) {
+  for (auto it = m.begin(); it != m.end(); ++it) {
+    s << (it == m.begin() ? "{\t" : "") << (*it).first << " : " << (*it).second << "\t";
+  }
+  return s << "}";
 }
 
 int main() {
