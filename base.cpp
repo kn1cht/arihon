@@ -108,7 +108,8 @@ bool comp_e(const edge& e1, const edge& e2) { return e1.c < e2.c; }
 struct Graph {
   const int N;
   vector<vector<PII> > data; // fst : to, snd : cost
-  vector<edge> data_e;
+  vector<edge> data_edge;
+  VVI data_mat; // matrix of cost, INF: no edge
   Graph(int size) : N(size + 1), data(N) {}
 
   VI dijkstra(int s) {
@@ -129,20 +130,26 @@ struct Graph {
     }
     return distance;
   }
-  /* ***use data_e for kruskal method***
-
+  /* ***use data_edge for kruskal method***
   int kruskal(int V) {
-    sort(all(data_e), comp_e);
+    sort(all(data_edge), comp_e);
     Union U(V);
     int res = 0;
     REP(i, N) {
-      edge e = data_e[i];
+      edge e = data_edge[i];
       if(!U.find(e.u, e.v)) {
         U.unite(e.u, e.v);
         res += e.c;
       }
     }
     return res;
+  }
+  */
+  /* ***use data_mat for warshall-floyd method***
+  void warshall_floyd() {
+    REP(k, N)
+      REP(i, N)
+       REP(j, N) data_mat[i][j] = min(data_mat[i][j], data_mat[i][k] + data_mat[k][j]);
   }
   */
 };
