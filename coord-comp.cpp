@@ -108,8 +108,7 @@ bool comp_e(const edge& e1, const edge& e2) { return e1.c < e2.c; }
 struct Graph {
   const int N;
   vector<vector<PII> > data; // fst : to, snd : cost
-  vector<edge> data_edge;
-  VVI data_mat; // matrix of cost, INF: no edge
+  vector<edge> data_e;
   Graph(int size) : N(size + 1), data(N) {}
 
   VI dijkstra(int s) {
@@ -130,50 +129,20 @@ struct Graph {
     }
     return distance;
   }
-  /*** dfs ***/
-  VI visited(N);
-  void dfs(int v) {
-    if(visited[v]) { return; }
-    debug(v);
-    visited[v] = 1;
-    REP(i, data[v].length()) {
-      dfs(data[v][i].fst);
-    }
-  }
+  /* ***use data_e for kruskal method***
 
-  void  bfs(int v) {
-    queue<int> que;
-    que.push(v);
-    while(!que.empty()) {
-      int cur = que.top();
-      debug(cur);
-      que.pop();
-      REP(i, data[v].length()) {
-        que.push(data[v][i].fst);
-      }
-    }
-  }
-
-  /* ***use data_edge for kruskal method***
   int kruskal(int V) {
-    sort(all(data_edge), comp_e);
+    sort(all(data_e), comp_e);
     Union U(V);
     int res = 0;
     REP(i, N) {
-      edge e = data_edge[i];
+      edge e = data_e[i];
       if(!U.find(e.u, e.v)) {
         U.unite(e.u, e.v);
         res += e.c;
       }
     }
     return res;
-  }
-  */
-  /* ***use data_mat for warshall-floyd method***
-  void warshall_floyd() {
-    REP(k, N)
-      REP(i, N)
-       REP(j, N) data_mat[i][j] = min(data_mat[i][j], data_mat[i][k] + data_mat[k][j]);
   }
   */
 };
