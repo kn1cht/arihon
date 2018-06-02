@@ -10,6 +10,7 @@
 #include <iterator>
 #include <list>
 #include <map>
+#include <numeric>
 #include <queue>
 #include <set>
 #include <sstream>
@@ -28,7 +29,7 @@
 #define snd second
 #define all(v) v.begin(), v.end()
 #define rall(v) v.rbegin(), v.rend()
-#define debug(x) cerr << #x <<": "<<x<<endl
+#define debug(x) cerr << #x <<": "<<(x)<<endl
 #define debug2(x,y) cerr << #x <<": "<< (x) <<", "<< #y <<": "<< (y) << endl
 #define answer(x) cout << (x) <<endl
 #define answer_fixed(x, p) cout << fixed << setprecision(p) << (x) << endl
@@ -131,12 +132,12 @@ struct Graph {
     return distance;
   }
   /*** dfs ***/
-  VI visited(N);
+  VI visited; // resize to N
   void dfs(int v) {
     if(visited[v]) { return; }
     debug(v);
     visited[v] = 1;
-    REP(i, data[v].length()) {
+    REP(i, data[v].size()) {
       dfs(data[v][i].fst);
     }
   }
@@ -145,10 +146,12 @@ struct Graph {
     queue<int> que;
     que.push(v);
     while(!que.empty()) {
-      int cur = que.top();
+      int cur = que.front();
       debug(cur);
+      visited[cur] = 1;
       que.pop();
-      REP(i, data[v].length()) {
+      REP(i, data[v].size()) {
+        if(visited[data[v][i].fst]) { continue; }
         que.push(data[v][i].fst);
       }
     }
